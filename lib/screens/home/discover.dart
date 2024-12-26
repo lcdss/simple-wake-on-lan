@@ -1,13 +1,16 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:network_info_plus/network_info_plus.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:simple_wake_on_lan/constants.dart';
-import 'bottom_sheet_form.dart';
+import 'package:network_info_plus/network_info_plus.dart';
+
+import 'package:swol/constants.dart';
 import '../../services/data.dart';
 import '../../services/network.dart';
 import '../../widgets/layout_elements.dart';
 import '../../widgets/universal_ui_components.dart';
+import 'bottom_sheet_form.dart';
 
 class DiscoverPage extends StatefulWidget {
   final Function(List<StorageDevice>, String?) updateDevicesList;

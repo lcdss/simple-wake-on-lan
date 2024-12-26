@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:simple_wake_on_lan/constants.dart';
+
+import 'package:swol/constants.dart';
 
 class CustomSeparatorFormatter extends TextInputFormatter {
   final String separators;

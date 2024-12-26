@@ -1,20 +1,18 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:dart_ping_ios/dart_ping_ios.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:simple_wake_on_lan/constants.dart';
-import 'package:simple_wake_on_lan/screens/about/about.dart';
-import 'package:simple_wake_on_lan/screens/home/home.dart';
-import 'package:simple_wake_on_lan/screens/settings/settings.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
+import 'package:swol/constants.dart';
+import 'package:swol/screens/about/about.dart';
+import 'package:swol/screens/home/home.dart';
+import 'package:swol/screens/settings/settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Register dart_ping_ios with dart_ping
-  DartPingIOS.register();
 
   // Get saved theme mode
   final savedThemeMode = await AdaptiveTheme.getThemeMode();

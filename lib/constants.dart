@@ -1,7 +1,9 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_wake_on_lan/widgets/chip_cards.dart';
+
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:swol/widgets/chip_cards.dart';
 
 class AppConstants {
   /// Navigation Bar Icons
@@ -46,15 +48,8 @@ class AppConstants {
   static const formInvalidArgument = Icons.cancel_outlined;
 
   // replacement patterns for the rich text controllers of mac and ip address
-  Map<RegExp, TextStyle> macPattern = {
-    RegExp(r"[:-]"):
-        const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)
-  };
-
-  Map<RegExp, TextStyle> ipPattern = {
-    RegExp(r"\."):
-        const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)
-  };
+  RegExp macPattern = RegExp(r"[:-]");
+  RegExp ipPattern = RegExp(r"\.");
 
   // WOL Port Chips
   List<CustomChoiceChip<int>> getChipsWolPorts({BuildContext? context}) {

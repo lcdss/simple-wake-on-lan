@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_wake_on_lan/constants.dart';
-import 'package:simple_wake_on_lan/screens/home/discover.dart';
-import 'package:simple_wake_on_lan/screens/home/home.dart';
-import 'package:simple_wake_on_lan/services/data.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:simple_wake_on_lan/widgets/layout_elements.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
+
+import 'package:swol/constants.dart';
+import 'package:swol/screens/home/discover.dart';
+import 'package:swol/screens/home/home.dart';
+import 'package:swol/services/data.dart';
+import 'package:swol/widgets/layout_elements.dart';
 import '../../services/database.dart';
 import '../../services/form_input_formatters.dart';
 import '../../widgets/chip_cards.dart';
@@ -106,15 +108,23 @@ class _ModularBottomFormPageState extends State<ModularBottomFormPage> {
   void initState() {
     super.initState();
 
-    widget.controllerIp = RichTextController(
-      onMatch: (List<String> match) {},
-      patternMatchMap: AppConstants().ipPattern,
-    );
+    widget.controllerIp =
+        RichTextController(onMatch: (List<String> match) {}, targetMatches: [
+      MatchTargetItem(
+        regex: AppConstants().ipPattern,
+        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+        allowInlineMatching: true,
+      ),
+    ]);
 
-    widget.controllerMac = RichTextController(
-      onMatch: (List<String> match) {},
-      patternMatchMap: AppConstants().macPattern,
-    );
+    widget.controllerMac =
+        RichTextController(onMatch: (List<String> match) {}, targetMatches: [
+      MatchTargetItem(
+        regex: AppConstants().macPattern,
+        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+        allowInlineMatching: true,
+      ),
+    ]);
 
     // initialize the text controllers
     widget.controllerName.text = widget.device.hostName;

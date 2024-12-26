@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_wake_on_lan/widgets/universal_ui_components.dart';
 
+import 'package:swol/widgets/universal_ui_components.dart';
 import '../constants.dart';
 
 ///

@@ -1,12 +1,14 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 
 import 'package:dart_ping/dart_ping.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_wake_on_lan/constants.dart';
-import 'dart:io';
-import 'package:wake_on_lan/wake_on_lan.dart';
-import 'data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:wake_on_lan/wake_on_lan.dart';
+
+import 'package:swol/constants.dart';
+import 'data.dart';
 
 Stream<NetworkDevice> findDevicesInNetwork(
   String networkPrefix,
@@ -71,14 +73,14 @@ Stream<Message> sendWolPackage(
   final int? port = device.wolPort;
   bool invalid = false;
 
-  if (!IPv4Address.validate(ip)) {
+  if (!IPAddress.validate(ip).state) {
     yield Message(
         text: AppLocalizations.of(context)!.homeWolCardIp(ip),
         type: MsgType.error);
     invalid = true;
   }
 
-  if (!MACAddress.validate(mac)) {
+  if (!MACAddress.validate(mac).state) {
     yield Message(
         text: AppLocalizations.of(context)!.homeWolCardMac(mac),
         type: MsgType.error);
@@ -105,14 +107,14 @@ Stream<Message> sendWolPackage(
   yield Message(text: AppLocalizations.of(context)!.homeWolCardValid);
   yield Message(text: AppLocalizations.of(context)!.homeWolCardSendWol);
 
-  IPv4Address ipv4Address = IPv4Address(ip);
+  IPAddress ipv4Address = IPAddress(ip);
   MACAddress macAddress = MACAddress(mac);
 
   // sometimes only a broadcast works to wake a device so a broadcast is sent additionally
 
   final subnet = ip.substring(0, ip.lastIndexOf("."));
   final broadcast = "$subnet.255";
-  IPv4Address ipv4Broadcast = IPv4Address(broadcast);
+  IPAddress ipv4Broadcast = IPAddress(broadcast);
 
   // get localisation string beforehand to avoid using BuildContexts across async gaps
   String homeWolCardSendWolSuccess =

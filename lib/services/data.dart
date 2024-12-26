@@ -1,4 +1,4 @@
-import 'package:simple_wake_on_lan/services/utilities.dart';
+import 'package:swol/services/utilities.dart';
 
 abstract class Device implements Comparable<NetworkDevice> {
   final String hostName;

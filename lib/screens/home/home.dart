@@ -1,16 +1,19 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_wake_on_lan/constants.dart';
-import 'package:simple_wake_on_lan/screens/home/discover.dart';
-import '../../widgets/layout_elements.dart';
-import 'bottom_sheet_form.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../services/database.dart';
+
+import 'package:swol/constants.dart';
+import 'package:swol/screens/home/discover.dart';
 import '../../services/data.dart';
+import '../../services/database.dart';
 import '../../services/network.dart';
 import '../../widgets/chip_cards.dart';
+import '../../widgets/layout_elements.dart';
 import '../../widgets/universal_ui_components.dart';
+import 'bottom_sheet_form.dart';
 
 // This is the type used by the popup menu below.
 enum SortingOrder { alphabetical, recently, type }
