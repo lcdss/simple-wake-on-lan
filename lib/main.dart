@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         statusBarColor: Colors.transparent, //top status bar
         systemNavigationBarColor: Theme.of(context)
             .colorScheme
-            .surfaceVariant, // navigation bar color, the one Im looking for
+            .surfaceContainerHighest, // navigation bar color, the one Im looking for
         statusBarIconBrightness: Brightness.dark, // status bar icons' color
         systemNavigationBarIconBrightness:
             Brightness.dark, //navigation bar icons' color

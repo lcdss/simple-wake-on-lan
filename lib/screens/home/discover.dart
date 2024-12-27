@@ -17,8 +17,7 @@ class DiscoverPage extends StatefulWidget {
   final List<StorageDevice> devices;
 
   const DiscoverPage(
-      {Key? key, required this.updateDevicesList, required this.devices})
-      : super(key: key);
+      {super.key, required this.updateDevicesList, required this.devices});
 
   @override
   State<DiscoverPage> createState() => _DiscoverPageState();

@@ -22,13 +22,12 @@ abstract class ModularBottomFormPage extends StatefulWidget {
   final bool deleteButton;
 
   ModularBottomFormPage(
-      {Key? key,
+      {super.key,
       required this.device,
       required this.devices,
       required this.title,
       required this.onSubmitDeviceCallback,
-      this.deleteButton = false})
-      : super(key: key);
+      this.deleteButton = false});
 
   // text controllers for the text input fields
   final TextEditingController controllerName = TextEditingController();
