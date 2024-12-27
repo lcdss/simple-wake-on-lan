@@ -29,11 +29,12 @@
   "homeDeviceCardOffline": "Device is offline",
   "homeWolCardTitle": "Waking up...",
   "homeWolCardIp": "'{ip}' is an invalid IPv4 address",
+  "homeWolCardHost": "'{host}' couldn't be resolved to an IPv4 address",
   "@homeWolCardIp": {
     "placeholders": {
       "ip": {
         "type": "String",
-        "example": "192.168.0.1",
+        "example": "192.168.0.1 or dyn.example.com",
         "description": "The IP address which was provided by the user."
       }
     }

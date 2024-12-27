@@ -34,10 +34,11 @@ class AppConstants {
   // Form Elements
   static const formIcon = Icons.done_rounded;
   static const nameValidationRegex = r'^.{1,100}$';
+  static const hostValidationRegex = r'^([a-z]+\.){1,}[a-z]{2,}$';
   static const ipValidationRegex =
-      r'^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$';
+      r'^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}|([a-z]+\.){1,}[a-z]{2,}$';
   static const ipSubStringValidationRegex =
-      r'^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})\.){0,3}(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2}))?$';
+      r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})\.){0,3}((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2}))?|([a-z]+\.){1,}[a-z]{2,}$';
   static const macValidationRegex =
       r'^(?:[0-9A-Fa-f]{2}([-:]))(?:[0-9A-Fa-f]{2}\1){4}[0-9A-Fa-f]{2}$';
   static const macSubStringValidationRegex =

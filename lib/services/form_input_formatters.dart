@@ -107,19 +107,17 @@ class CustomSeparatorFormatter extends TextInputFormatter {
 }
 
 class MACAddressFormatter extends CustomSeparatorFormatter {
-  MACAddressFormatter({bool allowPasteWithoutFormatting = true})
+  MACAddressFormatter({super.allowPasteWithoutFormatting})
       : super(
           separators: ':-',
           preferredSeparator: ':',
-          allowPasteWithoutFormatting: allowPasteWithoutFormatting,
           allowedInput: RegExp(AppConstants.macSubStringValidationRegex),
         );
 }
 
 class IPAddressFormatter extends CustomSeparatorFormatter {
-  IPAddressFormatter({bool allowPasteWithoutFormatting = true})
+  IPAddressFormatter({super.allowPasteWithoutFormatting})
       : super(
-          allowPasteWithoutFormatting: allowPasteWithoutFormatting,
           allowedInput: RegExp(AppConstants.ipSubStringValidationRegex),
           autoSeparate: false,
         );

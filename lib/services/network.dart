@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:swol/services/utilities.dart';
 import 'package:wake_on_lan/wake_on_lan.dart';
 
 import 'package:swol/constants.dart';
@@ -68,10 +69,23 @@ Stream<NetworkDevice> findDevicesInNetwork(
 Stream<Message> sendWolPackage(
     {required BuildContext context, required NetworkDevice device}) async* {
   // Validate correct formatting of ip and mac addresses
-  final ip = device.ipAddress;
+  String ip = device.ipAddress;
   final mac = device.macAddress;
   final int? port = device.wolPort;
   bool invalid = false;
+
+  if (isHost(ip)) {
+    String? result = await hostToIp(ip);
+
+    if (result == null) {
+      yield Message(
+          text: AppLocalizations.of(context)!.homeWolCardHost(ip),
+          type: MsgType.error);
+      invalid = true;
+    } else {
+      ip = result;
+    }
+  }
 
   if (!IPAddress.validate(ip).state) {
     yield Message(
