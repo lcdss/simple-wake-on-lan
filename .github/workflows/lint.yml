@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Lint
 
 on:
   push:
@@ -11,23 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.10.5'
-          channel: 'stable'
+          channel: stable
           cache: true
       - run: flutter --version
 
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Generate App Localizations
-        run:  |
-              flutter clean
-              flutter gen-l10n
-
-      - name: Get dependencies again after code-gen
+      - name: Get dependencies and generate localizations
         run: flutter pub get
 
       - name: Verify formatting

@@ -73,14 +73,14 @@ Stream<Message> sendWolPackage(
   final mac = device.macAddress;
   final int? port = device.wolPort;
   bool invalid = false;
+  final localizations = AppLocalizations.of(context);
 
   if (isHost(ip)) {
     String? result = await hostToIp(ip);
 
     if (result == null) {
       yield Message(
-          text: AppLocalizations.of(context)!.homeWolCardHost(ip),
-          type: MsgType.error);
+          text: localizations!.homeWolCardHost(ip), type: MsgType.error);
       invalid = true;
     } else {
       ip = result;
@@ -88,16 +88,13 @@ Stream<Message> sendWolPackage(
   }
 
   if (!IPAddress.validate(ip).state) {
-    yield Message(
-        text: AppLocalizations.of(context)!.homeWolCardIp(ip),
-        type: MsgType.error);
+    yield Message(text: localizations!.homeWolCardIp(ip), type: MsgType.error);
     invalid = true;
   }
 
   if (!MACAddress.validate(mac).state) {
     yield Message(
-        text: AppLocalizations.of(context)!.homeWolCardMac(mac),
-        type: MsgType.error);
+        text: localizations!.homeWolCardMac(mac), type: MsgType.error);
     invalid = true;
   }
 
@@ -105,21 +102,18 @@ Stream<Message> sendWolPackage(
   if (port == null || port < 0 || port > 65535) {
     String portString = port == null ? "" : port.toString();
     yield Message(
-        text: AppLocalizations.of(context)!.homeWolCardPort(portString),
-        type: MsgType.error);
+        text: localizations!.homeWolCardPort(portString), type: MsgType.error);
     invalid = true;
   }
 
   if (invalid) {
-    yield Message(
-        text: AppLocalizations.of(context)!.homeWolCardInvalid,
-        type: MsgType.error);
+    yield Message(text: localizations!.homeWolCardInvalid, type: MsgType.error);
     return;
   }
 
   // if no error occurred: try to send wol package
-  yield Message(text: AppLocalizations.of(context)!.homeWolCardValid);
-  yield Message(text: AppLocalizations.of(context)!.homeWolCardSendWol);
+  yield Message(text: localizations!.homeWolCardValid);
+  yield Message(text: localizations.homeWolCardSendWol);
 
   IPAddress ipv4Address = IPAddress(ip);
   MACAddress macAddress = MACAddress(mac);
@@ -132,13 +126,10 @@ Stream<Message> sendWolPackage(
 
   // get localisation string beforehand to avoid using BuildContexts across async gaps
   String homeWolCardSendWolSuccess =
-      AppLocalizations.of(context)!.homeWolCardSendWolSuccess(ip);
-  String homeWolCardPingInfo =
-      AppLocalizations.of(context)!.homeWolCardPingInfo;
-  String homeWolCardPingSuccess =
-      AppLocalizations.of(context)!.homeWolCardPingSuccess;
-  String homeWolCardPingFail =
-      AppLocalizations.of(context)!.homeWolCardPingFail;
+      localizations.homeWolCardSendWolSuccess(ip);
+  String homeWolCardPingInfo = localizations.homeWolCardPingInfo;
+  String homeWolCardPingSuccess = localizations.homeWolCardPingSuccess;
+  String homeWolCardPingFail = localizations.homeWolCardPingFail;
 
   try {
     WakeOnLAN wol = WakeOnLAN(ipv4Address, macAddress, port: port!);
@@ -149,8 +140,7 @@ Stream<Message> sendWolPackage(
     yield Message(text: homeWolCardSendWolSuccess, type: MsgType.check);
   } catch (e) {
     yield Message(
-        text: AppLocalizations.of(context)!.homeWolCardSendWolFail(ip),
-        type: MsgType.error);
+        text: localizations.homeWolCardSendWolFail(ip), type: MsgType.error);
   }
 
   // ping device until it is online

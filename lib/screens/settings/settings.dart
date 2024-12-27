@@ -126,72 +126,79 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> importJsonFile() async {
     File? file = await getJsonFile();
     List<StorageDevice> importedDevices = [];
-    if (file != null) {
-      String fileExt = file.path.split('.').last;
-      if (fileExt != 'json' && context.mounted) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return customDualChoiceAlertdialog(
-                title: AppLocalizations.of(context)!
-                    .settingsResetDialogWrongFormatTitle,
-                iconColor: Theme.of(context).colorScheme.error,
-                child: Text(AppLocalizations.of(context)!
-                    .settingsResetDialogWrongFormatText(fileExt)),
-                icon: AppConstants.warningIcon,
-                rightText: AppLocalizations.of(context)!.ok,
-                rightOnPressed: () => Navigator.pop(context),
-              );
-            });
-        return;
-      }
-      try {
-        final fileContents = await file.readAsString();
-        final jsonData = json.decode(fileContents) as List<dynamic>;
-        importedDevices =
-            jsonData.map((item) => StorageDevice.fromJson(item)).toList();
-      } on FileSystemException {
-        if (context.mounted) {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return customDualChoiceAlertdialog(
-                  title: AppLocalizations.of(context)!
-                      .settingsResetDialogWrongJsonFormatTitle,
-                  iconColor: Theme.of(context).colorScheme.error,
-                  child: Text(AppLocalizations.of(context)!
-                      .settingsResetDialogWrongJsonFormatText),
-                  icon: AppConstants.warningIcon,
-                  rightText: AppLocalizations.of(context)!.ok,
-                  rightOnPressed: () => Navigator.pop(context),
-                );
-              });
-        }
-        return;
-      }
-      if (context.mounted) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return customDualChoiceAlertdialog(
-                title: AppLocalizations.of(context)!.genericWarning,
-                icon: AppConstants.warningIcon,
-                iconColor: Theme.of(context).colorScheme.error,
-                child: Text(AppLocalizations.of(context)!
-                    .settingsResetDialogConfirmText),
-                leftText: AppLocalizations.of(context)!.cancel,
-                leftOnPressed: () => Navigator.pop(context),
-                rightText: AppLocalizations.of(context)!
-                    .settingsResetDialogConfirmButton,
-                rightOnPressed: () => {
-                  deviceStorage.deleteAllDevices(),
-                  deviceStorage.saveDevices(importedDevices),
-                  Navigator.pop(context),
-                },
-              );
-            });
-      }
+
+    if (file == null || !mounted) {
+      return;
     }
+
+    String fileExt = file.path.split('.').last;
+
+    if (fileExt != 'json') {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return customDualChoiceAlertdialog(
+              title: AppLocalizations.of(context)!
+                  .settingsResetDialogWrongFormatTitle,
+              iconColor: Theme.of(context).colorScheme.error,
+              child: Text(AppLocalizations.of(context)!
+                  .settingsResetDialogWrongFormatText(fileExt)),
+              icon: AppConstants.warningIcon,
+              rightText: AppLocalizations.of(context)!.ok,
+              rightOnPressed: () => Navigator.pop(context),
+            );
+          });
+      return;
+    }
+
+    try {
+      final fileContents = await file.readAsString();
+      final jsonData = json.decode(fileContents) as List<dynamic>;
+      importedDevices =
+          jsonData.map((item) => StorageDevice.fromJson(item)).toList();
+    } on FileSystemException {
+      if (!mounted) return;
+
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return customDualChoiceAlertdialog(
+              title: AppLocalizations.of(context)!
+                  .settingsResetDialogWrongJsonFormatTitle,
+              iconColor: Theme.of(context).colorScheme.error,
+              child: Text(AppLocalizations.of(context)!
+                  .settingsResetDialogWrongJsonFormatText),
+              icon: AppConstants.warningIcon,
+              rightText: AppLocalizations.of(context)!.ok,
+              rightOnPressed: () => Navigator.pop(context),
+            );
+          });
+
+      return;
+    }
+
+    if (!mounted) return;
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return customDualChoiceAlertdialog(
+            title: AppLocalizations.of(context)!.genericWarning,
+            icon: AppConstants.warningIcon,
+            iconColor: Theme.of(context).colorScheme.error,
+            child: Text(
+                AppLocalizations.of(context)!.settingsResetDialogConfirmText),
+            leftText: AppLocalizations.of(context)!.cancel,
+            leftOnPressed: () => Navigator.pop(context),
+            rightText:
+                AppLocalizations.of(context)!.settingsResetDialogConfirmButton,
+            rightOnPressed: () => {
+              deviceStorage.deleteAllDevices(),
+              deviceStorage.saveDevices(importedDevices),
+              Navigator.pop(context),
+            },
+          );
+        });
   }
 
   // Widget getThemeSelector() {

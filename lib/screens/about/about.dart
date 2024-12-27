@@ -52,11 +52,14 @@ class _AboutPageState extends State<AboutPage> {
 
   Future<void> initPlatformState() async {
     var deviceData = <String, dynamic>{};
+    final localizations = AppLocalizations.of(context);
+
+    if (localizations == null) return;
 
     try {
       if (kIsWeb) {
         deviceData = <String, dynamic>{
-          'Error:': AppLocalizations.of(context)!.aboutWebPlatformError
+          'Error:': localizations.aboutWebPlatformError
         };
       } else {
         switch (defaultTargetPlatform) {
@@ -69,33 +72,34 @@ class _AboutPageState extends State<AboutPage> {
             break;
           case TargetPlatform.fuchsia:
             deviceData = <String, dynamic>{
-              'Error:': AppLocalizations.of(context)!.aboutFuchsiaPlatformError
+              'Error:': localizations.aboutFuchsiaPlatformError
             };
             break;
           case TargetPlatform.linux:
             deviceData = <String, dynamic>{
-              'Error:': AppLocalizations.of(context)!.aboutLinuxPlatformError
+              'Error:': localizations.aboutLinuxPlatformError
             };
             break;
           case TargetPlatform.macOS:
             deviceData = <String, dynamic>{
-              'Error:': AppLocalizations.of(context)!.aboutMacOSPlatformError
+              'Error:': localizations.aboutMacOSPlatformError
             };
             break;
           case TargetPlatform.windows:
             deviceData = <String, dynamic>{
-              'Error:': AppLocalizations.of(context)!.aboutWindowsPlatformError
+              'Error:': localizations.aboutWindowsPlatformError
             };
             break;
         }
       }
     } on PlatformException {
       deviceData = <String, dynamic>{
-        'Error:': AppLocalizations.of(context)!.aboutNoPlatformDetected
+        'Error:': localizations.aboutNoPlatformDetected
       };
     }
 
     if (!mounted) return;
+
     setState(() {
       _deviceData = deviceData;
     });

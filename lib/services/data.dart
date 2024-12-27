@@ -33,20 +33,14 @@ class StorageDevice extends Device {
   bool? isOnline;
 
   StorageDevice(
-      {required this.id,
-      required hostName,
-      required ipAddress,
-      required macAddress,
-      wolPort,
-      this.isOnline,
+      {required super.hostName,
+      required super.ipAddress,
+      required super.macAddress,
+      super.wolPort,
+      super.deviceType,
+      required this.id,
       required this.modified,
-      deviceType})
-      : super(
-            hostName: hostName,
-            ipAddress: ipAddress,
-            macAddress: macAddress,
-            wolPort: wolPort,
-            deviceType: deviceType);
+      this.isOnline});
 
   @override
   int compareTo(NetworkDevice other) {
@@ -114,13 +108,11 @@ class StorageDevice extends Device {
 
 class NetworkDevice extends Device {
   NetworkDevice(
-      {hostName = '', ipAddress = '', macAddress = '', wolPort, deviceType})
-      : super(
-            hostName: hostName,
-            ipAddress: ipAddress,
-            macAddress: macAddress,
-            wolPort: wolPort,
-            deviceType: deviceType);
+      {super.hostName = '',
+      super.ipAddress = '',
+      super.macAddress = '',
+      super.wolPort,
+      super.deviceType});
 
   @override
   int compareTo(NetworkDevice other) {
